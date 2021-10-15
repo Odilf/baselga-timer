@@ -94,7 +94,7 @@ import { get } from 'svelte/store';
 	@import "@fontsource/roboto/900.css"; 
 
 	h1, h2 {
-		margin: 1em;
+		margin: 1rem;
 
 		display: flex;
 		/* justify-content: center; */
@@ -107,6 +107,9 @@ import { get } from 'svelte/store';
 		align-items: center;
 		
 		font-weight: 900;
+		font-size: 3.5rem;
+		/* background-color: hsla(0, 100, 20, 20); */
+		/* background-color: hsla(0, 100%, 20%, 20%); */
 	}
 
 	h2 {
@@ -114,13 +117,16 @@ import { get } from 'svelte/store';
 	}
 
 	main {
-		position: absolute;
-		inset: 0;
+		min-width: 100vw;
+		min-height: 100vh;
 
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+
+		padding-bottom: 5em;
+		
 	}
 
 	body {
@@ -128,6 +134,7 @@ import { get } from 'svelte/store';
 		grid-template-columns: 2fr 1fr;
 		gap: 10px;
 		grid-auto-rows: minmax(100px, auto);
+		/* grid-auto-rows: 100px; */
 	}
 
 	input {
@@ -141,6 +148,7 @@ import { get } from 'svelte/store';
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		flex-direction: column;
 	}
 
 	button {
