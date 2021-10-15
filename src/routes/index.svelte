@@ -53,8 +53,8 @@
 		</section>
 
 	</body>
-	
-	<button>?</button>
+
+	<button on:click={() => location.href = "/about"}>?</button>
 </main>
 
 <style>
