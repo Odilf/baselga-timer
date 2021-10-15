@@ -1,4 +1,6 @@
 <script lang="ts">
+	import '../app.css'
+
 	let btime = "00:00" // Baselguian time
 	let imat: string // "Im at"
 	let mood = 0.5
@@ -77,6 +79,8 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+
+		background-color: var(--caca);
 	}
 
 	section {
