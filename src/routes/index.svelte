@@ -15,7 +15,7 @@
 		let hours = Math.floor(inmins / 60)
 		let minutes = inmins % 60
 
-		return (hours < 10 ? "0" : "") + hours.toFixed(0) + ":" + (minutes < 10 ? "0" : "") + minutes.toFixed(0)
+		return (Math.round(hours) >= 10 ? "" : "0") + hours.toFixed(0) + ":" + (Math.round(minutes) >= 10 ? "" : "0") + minutes.toFixed(0)
 	}
 
 	function lorentzOdilfTransform(btime: string, imat: string, mood: number) {
@@ -48,7 +48,7 @@
 		
 		<h2> Mood de baselga </h2>
 		<section>
-			<input type="range" min=0 max=1 step=0.001 bind:value={mood}/>
+			<input type="range" min=0 max=0.999 step=0.001 bind:value={mood}/>
 			{(mood * 10).toFixed(2)} / 10
 		</section>
 
@@ -109,5 +109,11 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+
+	button {
+		border-radius: 20%;
+		height: 3em;
+		width: 3em;
 	}
 </style>
