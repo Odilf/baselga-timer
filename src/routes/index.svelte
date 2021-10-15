@@ -51,8 +51,8 @@
 
 	<section>
 		<h2> Mood de baselga </h2>
-		<input type="range" min=0 max=1 step=0.01 bind:value={mood}/>
-		{mood.toFixed(2)}
+		<input type="range" min=0 max=1 step=0.001 bind:value={mood}/>
+		{(mood * 10).toFixed(2)} / 10
 	</section>
 </main>
 
