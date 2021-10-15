@@ -35,36 +35,46 @@
 
 <main>
 	<h1> Transformada de Lorentz-Odilf </h1>
+	<body>
 
-	<section>
 		<h2> Tiempo baselguiano </h2>
 		<input type="time" bind:value={btime}/>
-	</section>
 
-	<section>
 		<h2> "Llego a las..." </h2>
 		<input type="time" bind:value={imat}/>
-	</section>
-
-	<section>
+			
 		<h2> Tiempo real </h2>
-		<h1> {lorentzOdilfTransform(btime, imat, mood)} </h1>
-	</section>
-
-	<section>
+		<h1 class=time> {lorentzOdilfTransform(btime, imat, mood)} </h1>
+		
 		<h2> Mood de baselga </h2>
-		<input type="range" min=0 max=1 step=0.001 bind:value={mood}/>
-		{(mood * 10).toFixed(2)} / 10
-	</section>
+		<section>
+			<input type="range" min=0 max=1 step=0.001 bind:value={mood}/>
+			{(mood * 10).toFixed(2)} / 10
+		</section>
+
+	</body>
+	
+	<button>?</button>
 </main>
 
 <style>
+	@import "@fontsource/roboto-mono/100.css"; 
+	@import "@fontsource/roboto/900.css"; 
+
 	h1, h2 {
 		margin: 1em;
 
 		display: flex;
+		/* justify-content: center; */
+		align-items: center;
+	}
+
+	.time {
+		display: flex;
 		justify-content: center;
 		align-items: center;
+		
+		font-weight: 900;
 	}
 
 	h2 {
@@ -79,19 +89,25 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-
-		background-color: var(--caca);
 	}
 
-	section {
-		display: flex;
-		/* flex-direction: column; */
-		justify-content: center;
-		align-items: center;	
+	body {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: 10px;
+		grid-auto-rows: minmax(100px, auto);
 	}
 
 	input {
 		/* margin: 1em; */
 		font-size: 2em;
+		font-family: "Roboto Mono";
+		font-weight: 100;
+	}
+
+	section {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>
