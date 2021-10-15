@@ -37,4 +37,9 @@
 		font-family: "Roboto";
 		font-weight: 300;
 	}
+
+	button {
+		width: 80vw;
+		padding: 1em;
+	}
 </style>
