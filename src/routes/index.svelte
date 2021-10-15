@@ -1,24 +1,26 @@
 <script lang="ts">
+import { get } from 'svelte/store';
+
 	import '../app.css'
 
-	let btime = "00:00" // Baselguian time
+	let btime = new Date().getHours() + ":" + new Date().getMinutes() // Baselguian time
 	let imat: string // "Im at"
 	let mood = 0.5
 
 	const max_delay = 30
 
-	function getMins(time: string) {
+	function getMins(time: string): number {
 		return parseInt(time.substr(3, 2)) + parseInt(time.substr(0, 2)) * 60
 	}
 
-	function formatTime(inmins: number) {
+	function formatTime(inmins: number): string {
 		let hours = Math.floor(inmins / 60)
 		let minutes = inmins % 60
 
 		return (Math.round(hours) >= 10 ? "" : "0") + hours.toFixed(0) + ":" + (Math.round(minutes) >= 10 ? "" : "0") + minutes.toFixed(0)
 	}
 
-	function lorentzOdilfTransform(btime: string, imat: string, mood: number) {
+	function lorentzOdilfTransform(btime: string, imat: string, mood: number): string {
 		let real = getMins(btime)
 
 		if (imat) {
@@ -31,10 +33,36 @@
 
 		return formatTime(real)
 	}
+
+	function reason() {
+		const verbs = [
+			"he perdido",
+			"me ha saltado",
+			"ha llegado tarde",
+			"ha llegado tarde",
+			"ha tenido retrasos",
+		]
+
+		const vehicles = [
+			"el bus",
+			"el bus",
+			"el tren",
+			"el tren",
+			"el metro",
+			"el metro",
+			"mi padre",
+			"mi madre",
+		]
+		return `"esq ${random(verbs)} ${random(vehicles)}"	`
+	}
+
+	function random(list: unknown[]) {
+		return list[Math.floor(Math.random()*list.length)]
+	}
 </script>
 
 <main>
-	<h1> Transformada de Lorentz-Odilf </h1>
+	<h1> Lorentz-Odilf transform for Baselguian Times </h1>
 	<body>
 
 		<h2> Tiempo baselguiano </h2>
@@ -43,14 +71,18 @@
 		<h2> "Llego a las..." </h2>
 		<input type="time" bind:value={imat}/>
 			
-		<h2> Tiempo real </h2>
-		<h1 class=time> {lorentzOdilfTransform(btime, imat, mood)} </h1>
-		
 		<h2> Mood de baselga </h2>
 		<section>
 			<input type="range" min=0 max=0.999 step=0.001 bind:value={mood}/>
 			{(mood * 10).toFixed(2)} / 10
 		</section>
+
+		<h2> Tiempo real </h2>
+		<h1 class=time> {lorentzOdilfTransform(btime, imat, mood)} </h1>
+
+		<h2> Razón </h2>
+		<p> {reason()} </p>
+		
 
 	</body>
 
@@ -115,5 +147,11 @@
 		border-radius: 20%;
 		height: 3em;
 		width: 3em;
+	}
+
+	p {
+		display: flex;
+		align-items: center;
+		text-align: center;
 	}
 </style>
