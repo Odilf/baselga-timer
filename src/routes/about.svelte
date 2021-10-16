@@ -13,7 +13,14 @@
 		
 			<p>
 				The Lorentz-Odilf transforms incorporates the latests findings of physics, chemestry, geology, biochemestry, biology, botany, zoology and furry science.
+			<hr>
+
+			<p>
+				The actual formula is: <br> 
+				<code>(2*im_at - real)) * 1.01 + 60 * (1/(mood + 0.1) - 0.9) </code>
 			</p>
+
+
 		
 			<button on:click={() => location.href = "/"}> Return </button>
 		</body>
@@ -39,7 +46,8 @@
 	}
 
 	button {
-		width: 80vw;
+		width: 100%;
 		padding: 1em;
+		margin: 0px;
 	}
 </style>

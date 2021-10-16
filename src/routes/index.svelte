@@ -9,29 +9,32 @@ import { get } from 'svelte/store';
 
 	let reason_val = reason()
 
-	const max_delay = 30
-
 	function getMins(time: string): number {
 		return parseInt(time.substr(3, 2)) + parseInt(time.substr(0, 2)) * 60
 	}
 
 	function formatTime(inmins: number): string {
 		let hours = Math.floor(inmins / 60)
+		hours = hours % 24
 		let minutes = inmins % 60
 
 		return (Math.round(hours) >= 10 ? "" : "0") + hours.toFixed(0) + ":" + (Math.round(minutes) >= 10 ? "" : "0") + minutes.toFixed(0)
 	}
 
-	function lorentzOdilfTransform(btime: string, imat: string, mood: number): string {
+	function lorentzOdilfTransform(btime: string, imat: string, mood: number, max_delay = 60): string {
 		let real = getMins(btime)
 
+		let delta = 0
 		if (imat) {
 			let imatm = getMins(imat)
-			const delta = imatm - real
-			real = imatm + delta
+			delta = imatm - real
 		}
 
-		real += max_delay * (1 - mood)
+		console.log(1 - mood);
+
+		const mood_weight = x => 1/(x + 0.1) - 0.9
+
+		real = (real + 2*delta) * 1.01 + max_delay * mood_weight(mood)
 
 		return formatTime(real)
 	}
@@ -75,7 +78,7 @@ import { get } from 'svelte/store';
 			
 		<h2> Mood de baselga </h2>
 		<section>
-			<input type="range" min=0 max=0.999 step=0.001 bind:value={mood}/>
+			<input type="range" min=0 max=1 step=0.001 bind:value={mood}/>
 			{(mood * 10).toFixed(2)} / 10
 		</section>
 
@@ -127,22 +130,23 @@ import { get } from 'svelte/store';
 	main {
 		min-width: 100vw;
 		min-height: 100vh;
-
+		
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-
+		
 		padding-bottom: 5em;
 		
 	}
-
+	
 	body {
 		display: grid;
 		grid-template-columns: 2fr 1fr;
 		gap: 10px;
 		grid-auto-rows: minmax(100px, auto);
 		/* grid-auto-rows: 100px; */
+		width: min(30em, 90vw);
 	}
 
 	input {
@@ -161,8 +165,8 @@ import { get } from 'svelte/store';
 
 	button {
 		border-radius: 20%;
-		height: 3em;
-		width: 3em;
+		height: 4em;
+		width: 4em;
 	}
 
 	p {
